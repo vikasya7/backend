@@ -2,6 +2,7 @@ import express, { type Request, type Response } from "express"
 import cookieParser from 'cookie-parser'
 import { FRONTEND_URL } from "./config/config.js"
 import cors from 'cors'
+import { globalErrorHandler } from "./middlewares/error.middleware.js"
 export const app=express()
 
 
@@ -18,3 +19,7 @@ app.get("/healthCheck",(req:Request,res:Response)=>{
         message:"api is working fine"
     })
 })
+import authRouter from "./modules/auth_modules/auth.route.js"
+
+app.use("/api/v1/auth",authRouter)
+app.use(globalErrorHandler)

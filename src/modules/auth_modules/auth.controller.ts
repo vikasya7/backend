@@ -1,0 +1,15 @@
+import type { Request, Response } from "express";
+import { catchAsync } from "../../utils/catchAsync.js";
+import { authService } from "./auth.service.js";
+import { sendResponse } from "../../utils/sendResponse.js";
+
+
+export const registerUserController=catchAsync(async (req:Request,res:Response)=>{
+    const result=await authService.registerUser(req.body)
+    
+    sendResponse(res,201,{
+        success:true,
+        message:"accunt created successfully",
+        data:result
+    })
+})
